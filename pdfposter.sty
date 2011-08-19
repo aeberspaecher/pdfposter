@@ -1,0 +1,224 @@
+% Poster class
+% by Alexander Eberspächer, 2011
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pdfposter}[2011/08/19 pdfposter]
+\RequirePackage{graphicx}
+\RequirePackage{multicol}
+\RequirePackage{color}
+\RequirePackage{tikz}
+\RequirePackage{environ}
+\RequirePackage[pdftex]{hyperref}
+
+\usetikzlibrary{shadows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+
+\pagestyle{empty} % no page numbers and other stuff on the page
+
+% declare different layers for the blocks
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+%-----------------------------------------------------------------------
+% try to fix margins etc as well as possible
+% (this is has been try&error at its best)
+\setlength{\hoffset}{-0.5in}
+\setlength{\voffset}{-0.5in} 
+\setlength{\leftmargin}{0mm}
+\setlength{\footskip}{0mm}
+\setlength{\evensidemargin}{0mm}
+%-----------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------
+% define colors for the boxes and blocks
+\definecolor{greenboxcolor}{RGB}{51, 181, 64}  % color for green boxes
+\definecolor{blueboxcolor}{RGB}{51, 64, 181}  % color for blue boxes
+\definecolor{redboxcolor}{RGB}{181, 51, 51}  % color for red boxes
+\definecolor{greenblockcolor}{RGB}{51, 181, 64}  % color for green boxes
+\definecolor{blueblockcolor}{RGB}{51, 64, 181}  % color for blue boxes
+\definecolor{redblockcolor}{RGB}{181, 51, 51}  % color for red boxes
+% define block's and boxes roundnesses (1-10 may be sensible):
+\newcommand{\headerroundness}{15}
+\newcommand{\boxesroundness}{2}
+\newcommand{\blocksroundness}{7.5}
+%-----------------------------------------------------------------------
+
+\newcommand{\TikZBox}[2]{\path #1 node[below] {#2};}
+
+%-----------------------------------------------------------------------
+% define TikZ styles for the boxes:
+% for the green ones:
+\tikzstyle{greenbox} = [draw=greenboxcolor, fill=white, thick,
+    rectangle, rounded corners = \boxesroundness, inner sep=2.0ex, inner ysep=3ex, drop shadow]
+\tikzstyle{greenboxtitle} =[fill=white, text=greenboxcolor]
+% for the blue ones:
+\tikzstyle{bluebox} = [draw=blueboxcolor, fill=white, thick,
+    rectangle, rounded corners = \boxesroundness, inner sep=2.0ex, inner ysep=3ex, drop shadow]
+\tikzstyle{blueboxtitle} =[fill=white, text=blueboxcolor]
+% for the red ones:
+\tikzstyle{redbox} = [draw=redboxcolor, fill=white, thick,
+    rectangle, rounded corners = \boxesroundness, inner sep=2.0ex, inner ysep=3ex, drop shadow]
+\tikzstyle{redboxtitle} =[fill=white, text=redboxcolor]
+% for the title/header box:
+\tikzstyle{titlebox} = [draw=greenboxcolor, fill=white, very thick, double,
+    rectangle, rounded corners=\headerroundness, inner sep=0.5ex, inner ysep=1.0ex, drop shadow]
+%-----------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------
+% title box
+% the title box will look like that
+\newcommand{\titlebox}[5]{
+\begin{tikzpicture}
+\centering
+\node [titlebox] (box){ %begin node
+\begin{tabular}{c c c} % take care of positioning with tabular
+\begin{minipage}{0.20\textwidth} % minipage for the logo
+\begin{center}
+\includegraphics[width=\textwidth]{#4} % logo of the institute
+\end{center}
+\end{minipage}
+&
+\begin{minipage}{0.65\textwidth} % minipage for authors, titles
+\begin{center}{\huge \textsf{\bf\textsf{#1}}}\end{center} % title
+\begin{center}{\Large \textsc{#2}}\end{center} % authors
+\begin{center}{\large #3}\end{center} % insitute
+\end{minipage}
+&
+\begin{minipage}{0.15\textwidth} % minipage for conference name
+\begin{center}
+{\large #5}
+\end{center}
+\end{minipage}
+\end{tabular}
+
+}; % end node
+\end{tikzpicture}
+} % end newcommand
+%-----------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------
+% define the different boxes:
+% green:
+\NewEnviron{greenbox}[1]{
+\begin{minipage}{\columnwidth}
+{\begin{tikzpicture}
+\centering
+\node [greenbox] (box){ %begin node
+\begin{minipage}{\linewidth}
+          \BODY
+\end{minipage} % end minipage
+}; % end node
+\node[greenboxtitle, right=8pt] at (box.north west) {{\bf{\Large \textsf{#1}}}};
+\end{tikzpicture}}
+\end{minipage}
+\vspace{1.75ex}}
+
+% blue:
+\NewEnviron{bluebox}[1]{
+\begin{minipage}{\columnwidth}
+\begin{tikzpicture}
+\centering
+\node [bluebox] (box){ %begin node
+\begin{minipage}{\linewidth}
+          \BODY
+\end{minipage} % end minipage
+}; % end node
+\node[blueboxtitle, right=8pt] at (box.north west) {{\bf{\Large \textsf{#1}}}};
+\end{tikzpicture}
+\end{minipage}
+\vspace{1.75ex}}
+
+% red:
+\NewEnviron{redbox}[1]{
+\begin{minipage}{\columnwidth}
+\begin{tikzpicture}
+\centering
+\node [redbox] (box){ %begin node
+\begin{minipage}{\linewidth}
+          \BODY
+\end{minipage} % end minipage
+}; % end node
+\node[redboxtitle, right=8pt] at (box.north west) {{\bf{\Large \textsf{#1}}}};
+\end{tikzpicture}
+\end{minipage}
+\vspace{1.75ex}}
+%-----------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------
+% environments for the blocks:
+% green:
+\NewEnviron{greenblock}[2]{
+\begin{tikzpicture}
+\centering{}
+\begin{pgfonlayer}{background}
+\node[rectangle, draw=greenblockcolor, fill=greenblockcolor!10, rounded corners = \blocksroundness, thick, inner sep=1ex, inner ysep=1ex, drop shadow] (box) {
+\begin{minipage}{#2}
+\begin{tabular}{c}
+\hspace*{\fill}\\
+\begin{minipage}{\textwidth}
+\vspace{1.25ex}\BODY
+\end{minipage}
+\end{tabular}
+\end{minipage}
+}; % end node
+\end{pgfonlayer}
+\begin{pgfonlayer}{foreground}
+\draw[top color=greenblockcolor, bottom color=greenblockcolor!55, rounded corners=\blocksroundness] ($(box.north east)$) rectangle ($(box.north west)-(0.0, 1.50\baselineskip)$);
+%\coordinate [text centered, label={{{\bf\sf{{\color{blueboxcolor}#1}}}}}] (headline) at ($(titlebar.center)$);
+\node[color=white] at ($(box.north)-(0.0, 0.75\baselineskip)$)  {\bf{\sf{#1}}};
+\end{pgfonlayer}
+\end{tikzpicture}}
+
+% blue:
+\NewEnviron{blueblock}[2]{
+\begin{tikzpicture}
+\centering{}
+\begin{pgfonlayer}{background}
+\node[rectangle, draw=blueblockcolor, fill=blueblockcolor!10, rounded corners = \blocksroundness, thick, inner sep=1ex, inner ysep=1ex, drop shadow] (box) {
+\begin{minipage}{#2}
+\begin{tabular}{c}
+\hspace*{\fill}\\
+\begin{minipage}{\textwidth}
+\vspace{1.25ex}\BODY
+\end{minipage}
+\end{tabular}
+\end{minipage}
+}; % end node
+\end{pgfonlayer}
+\begin{pgfonlayer}{foreground}
+\draw[top color=blueblockcolor, bottom color=blueblockcolor!55, rounded corners=\blocksroundness] ($(box.north east)$) rectangle ($(box.north west)-(0.0, 1.50\baselineskip)$);
+%\coordinate [text centered, label={{{\bf\sf{{\color{blueboxcolor}#1}}}}}] (headline) at ($(titlebar.center)$);
+\node[color=white] at ($(box.north)-(0.0, 0.75\baselineskip)$)  {\bf{\sf{#1}}};
+\end{pgfonlayer}
+\end{tikzpicture}}
+
+% red:
+\NewEnviron{redblock}[2]{
+\begin{tikzpicture}
+\centering{}
+\begin{pgfonlayer}{background}
+\node[rectangle, draw=redblockcolor, fill=redboxcolor!10, rounded corners = \blocksroundness, thick, inner sep=1ex, inner ysep=1ex, drop shadow] (box) {
+\begin{minipage}{#2}
+\begin{tabular}{c}
+\\
+\begin{minipage}{\textwidth}
+\vspace{1.25ex}\BODY
+\end{minipage}
+\end{tabular}
+\end{minipage}
+}; % end node
+\end{pgfonlayer}
+\begin{pgfonlayer}{foreground}
+\draw[top color=redblockcolor, bottom color=redblockcolor!55, rounded corners=\blocksroundness] ($(box.north east)$) rectangle ($(box.north west)-(0.0, 1.50\baselineskip)$);
+%\coordinate [text centered, label={{{\bf\sf{{\color{blueboxcolor}#1}}}}}] (headline) at ($(titlebar.center)$);
+\node[color=white] at ($(box.north)-(0.0, 0.75\baselineskip)$)  {\bf{\sf{#1}}};
+\end{pgfonlayer}
+\end{tikzpicture}}
