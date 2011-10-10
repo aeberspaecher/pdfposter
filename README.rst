@@ -11,6 +11,9 @@ pdftex/pdflatex. For this reason, it uses TikZ instead of pstricks.
 This template depends on the document class a0poster. A0poster is available
 from http://www.ctan.org/tex-archive/macros/latex/contrib/a0poster/.
 
+For a preview, use this direct link:
+https://github.com/aeberspaecher/pdfposter/blob/master/pdfposter.pdf?raw=true
+
 Features
 --------
 
