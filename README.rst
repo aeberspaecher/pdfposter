@@ -19,15 +19,16 @@ Features
 
 - boxes in different colors
 - blocks for emphasizing
-- customizable through
-  - numbers of columns
-  - colors
+- customizable:
+    - numbers of columns
+    - colors
+    - ...
 
 How to use
 ----------
 
-1. Add authors, conference and poster title in pdfposter.tex.
-2. Add your poster's contents to content.tex.
-3. Compile with 'pdflatex pdfposter.tex'.
+1. Add authors, conference and poster title in ``pdfposter.tex``.
+2. Add your poster's contents to ``content.tex``.
+3. Compile with ``pdflatex pdfposter.tex``.
 
 There are some comments in the files that will help you while you're editing.
