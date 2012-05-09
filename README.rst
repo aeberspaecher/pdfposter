@@ -32,3 +32,16 @@ How to use
 3. Compile with ``pdflatex pdfposter.tex``.
 
 There are some comments in the files that will help you while you're editing.
+
+Known problems
+--------------
+
+In case you get an error message such as "! No room for a new \count", add the
+following lines to ``pdfposter.tex``::
+
+  \usepackage{etex}
+  \reserveinserts{20}
+
+The author needs these lines with TeXlive (http://www.tug.org/texlive/) 2011.
+
+
