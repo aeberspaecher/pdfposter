@@ -29,9 +29,16 @@ How to use
 
 1. Add authors, conference and poster title in ``pdfposter.tex``.
 2. Add your poster's contents to ``content.tex``.
-3. Compile with ``pdflatex pdfposter.tex``.
+3. Configure the ``waf`` build system with ``./waf configure``.
+4. Compile with ``./waf build``.
 
 There are some comments in the files that will help you while you're editing.
+
+You can remove all files created by the build with ``./waf distclean``. The
+build is removed by ``./waf clean``.
+
+For convenience, ``./waf build --view`` opens the poster in your standard
+PDF viewer after it is built.
 
 Known problems
 --------------
@@ -43,5 +50,3 @@ following lines to ``pdfposter.tex``::
   \reserveinserts{20}
 
 The author needs these lines with TeXlive (http://www.tug.org/texlive/) 2011.
-
-
