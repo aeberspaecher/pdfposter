@@ -16,7 +16,7 @@
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{calc}
 
-\pagestyle{empty} % no page numbers and other stuff on the page
+\pagestyle{empty} % disable page numbers and other stuff on the page
 
 % declare different layers for the blocks
 \pgfdeclarelayer{background}
@@ -25,9 +25,9 @@
 
 %-----------------------------------------------------------------------
 % try to fix margins etc as well as possible
-% (this is has been try&error at its best)
+% (this has been try&error at its best)
 \setlength{\hoffset}{-0.5in}
-\setlength{\voffset}{-0.5in} 
+\setlength{\voffset}{-0.5in}
 \setlength{\leftmargin}{0mm}
 \setlength{\footskip}{0mm}
 \setlength{\evensidemargin}{0mm}
@@ -39,16 +39,18 @@
 \definecolor{greenboxcolor}{RGB}{51, 181, 64}  % color for green boxes
 \definecolor{blueboxcolor}{RGB}{51, 64, 181}  % color for blue boxes
 \definecolor{redboxcolor}{RGB}{181, 51, 51}  % color for red boxes
-\definecolor{greenblockcolor}{RGB}{51, 181, 64}  % color for green boxes
-\definecolor{blueblockcolor}{RGB}{51, 64, 181}  % color for blue boxes
-\definecolor{redblockcolor}{RGB}{181, 51, 51}  % color for red boxes
+\definecolor{greenblockcolor}{RGB}{51, 181, 64}  % color for green blocks
+\definecolor{blueblockcolor}{RGB}{51, 64, 181}  % color for blue blocks
+\definecolor{redblockcolor}{RGB}{181, 51, 51}  % color for red blocks
 % define block's and boxes roundnesses (1-10 may be sensible):
 \newcommand{\headerroundness}{15}
 \newcommand{\boxesroundness}{2}
 \newcommand{\blocksroundness}{7.5}
 %-----------------------------------------------------------------------
 
+
 \newcommand{\TikZBox}[2]{\path #1 node[below] {#2};}
+
 
 %-----------------------------------------------------------------------
 % define TikZ styles for the boxes:
