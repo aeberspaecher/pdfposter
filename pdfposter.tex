@@ -32,13 +32,13 @@
 % below.
 
 \hypersetup{colorlinks,
-            breaklinks=true,
-            linkcolor=black,
-            urlcolor=black,
-            citecolor=black,
-            bookmarksnumbered,
-            pdfauthor={\posterauthors},
-            pdftitle={\postertitle}}
+  breaklinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  bookmarksnumbered,
+  pdfauthor={\posterauthors},
+  pdftitle={\postertitle}}
 
 
 % if the column spacing is bad, maybe change something here:
@@ -47,30 +47,30 @@
 \begin{document}
 
 \begin{minipage}{0.98\textwidth}
-\begin{center}
+  \begin{center}
 
-%-----------------------------------------------------------------------
-% color gradient for the page
-\begin{tikzpicture}[remember picture, overlay]
-    \node[inner sep=0pt, rectangle, top color=topcolor!\topcolorpercentage, bottom color=bottomcolor!\bottomcolorpercentage, minimum width=\paperwidth, minimum height=\paperheight] at (current page.center) {};
-\end{tikzpicture}
-%-----------------------------------------------------------------------
+    %-----------------------------------------------------------------------
+    % color gradient for the page
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[inner sep=0pt, rectangle, top color=topcolor!\topcolorpercentage, bottom color=bottomcolor!\bottomcolorpercentage, minimum width=\paperwidth, minimum height=\paperheight] at (current page.center) {};
+    \end{tikzpicture}
+    %-----------------------------------------------------------------------
 
-%-----------------------------------------------------------------------
-% insert the header box
-\titlebox{\postertitle}{\posterauthors}{\authorsinst}{\instlogo}{\conference}
-%-----------------------------------------------------------------------
+    %-----------------------------------------------------------------------
+    % insert the header box
+    \titlebox{\postertitle}{\posterauthors}{\authorsinst}{\instlogo}{\conference}
+    %-----------------------------------------------------------------------
 
-% add star here (multicols*) and in \end{multicols} for unbalanced columns:
-\begin{multicols}{\columnnumber}[]
+    % add star here (multicols*) and in \end{multicols} for unbalanced columns:
+    \begin{multicols}{\columnnumber}[]
 
-%-----------------------------------------------------------------------
-% load content.tex
-\input{content.tex}
+      %-----------------------------------------------------------------------
+      % load content.tex
+      \input{content.tex}
 
-\end{multicols}
+    \end{multicols}
 
-\end{center}
+  \end{center}
 \end{minipage}
 
 \end{document}
